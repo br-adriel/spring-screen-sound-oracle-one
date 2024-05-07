@@ -13,8 +13,8 @@ import java.util.Scanner;
 
 public class MainCli {
     private final Scanner sc = new Scanner(System.in);
-    private ArtistRepository artistRepository;
-    private SongRepository songRepository;
+    private final ArtistRepository artistRepository;
+    private final SongRepository songRepository;
 
     public MainCli(ArtistRepository artistRepository, SongRepository songRepository) {
         this.artistRepository = artistRepository;
@@ -56,7 +56,6 @@ public class MainCli {
                 case 6:
                     searchSong();
                 case 0:
-                    System.out.println("Até mais!");
                     break;
                 default:
                     System.out.println("[!] - Opção inválida");
@@ -183,7 +182,76 @@ public class MainCli {
     }
 
     private void searchArtist() {
+        var opcao = -1;
+        while (opcao != 0) {
+            System.out.println("\nPesquisar artista =======================");
+
+            var validOption = false;
+            while (!validOption) {
+                System.out.println("Buscar artista por qual parâmetro?");
+                System.out.println("1 - Nome");
+                System.out.println("2 - Data de nascimento");
+                System.out.println("3 - Gênero musical");
+                System.out.println("4 - Tipo");
+                System.out.println("0 - Cancelar");
+                System.out.print(">> ");
+                opcao = sc.nextInt();
+                sc.nextLine();
+
+                switch (opcao) {
+                    case 1:
+                        validOption = true;
+                        searchArtistByName();
+                        break;
+                    case 2:
+                        validOption = true;
+                        searchArtistByBirthDate();
+                        break;
+                    case 3:
+                        validOption = true;
+                        searchArtistByGenre();
+                        break;
+                    case 4:
+                        validOption = true;
+                        searchArtistByType();
+                        break;
+                    case 0:
+                        validOption = true;
+                        break;
+                    default:
+                        System.out.println("\n[!] - Opção inválida\n");
+                }
+            }
+
+            if (opcao == 0) continue;
+
+            validOption = false;
+            while (!validOption) {
+                System.out.println("Deseja buscar outro artista?");
+                System.out.println("0 - Não");
+                System.out.println("1 - Sim");
+                System.out.print(">> ");
+                opcao = sc.nextInt();
+
+                switch (opcao) {
+                    case 0:
+                    case 1:
+                        validOption = true;
+                        break;
+                    default:
+                        System.out.println("\n[!] - Opção inválida\n");
+                }
+            }
+        }
     }
+
+    private void searchArtistByName(){}
+
+    private void searchArtistByBirthDate() {}
+
+    private void searchArtistByGenre() {}
+
+    private void searchArtistByType() {}
 
     private void searchSong() {
     }
