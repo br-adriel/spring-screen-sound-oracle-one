@@ -17,7 +17,7 @@ public class Song {
     private Duration duration;
     private Integer ano;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne
     private Artist artist;
 
     public Song() {
