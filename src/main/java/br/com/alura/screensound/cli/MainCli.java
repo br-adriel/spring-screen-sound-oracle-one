@@ -1,9 +1,19 @@
 package br.com.alura.screensound.cli;
 
+import br.com.alura.screensound.repository.ArtistRepository;
+import br.com.alura.screensound.repository.SongRepository;
+
 import java.util.Scanner;
 
 public class MainCli {
     private final Scanner sc = new Scanner(System.in);
+    private ArtistRepository artistRepository;
+    private SongRepository songRepository;
+
+    public MainCli(ArtistRepository artistRepository, SongRepository songRepository) {
+        this.artistRepository = artistRepository;
+        this.songRepository = songRepository;
+    }
 
     public void start() {
         int opcao = -1;
