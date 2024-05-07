@@ -79,4 +79,9 @@ public class Artist {
     public void setType(ArtistType type) {
         this.type = type;
     }
+
+    @Override
+    public String toString() {
+        return this.name + " [" + type.getPortugueseTranslation() + "]";
+    }
 }
