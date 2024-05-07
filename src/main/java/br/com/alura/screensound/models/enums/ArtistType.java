@@ -10,4 +10,13 @@ public enum ArtistType {
     ArtistType(String portugueseTranslation) {
         this.portugueseTranslation = portugueseTranslation;
     }
+
+    public static ArtistType fromPortugueseTranslation(String text) {
+        for (ArtistType artistType : ArtistType.values()) {
+            if (artistType.portugueseTranslation.equalsIgnoreCase(text)) {
+                return artistType;
+            }
+        }
+        throw new IllegalArgumentException("Unknown ArtistType value");
+    }
 }
