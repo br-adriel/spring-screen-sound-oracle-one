@@ -4,13 +4,14 @@ import br.com.alura.screensound.models.enums.ArtistType;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Artist {
     private Long id;
     private String name;
     private String bio;
     private LocalDate birthDate;
-    private ArrayList<String> genres;
+    private List<String> genres;
     private String website;
     private ArtistType type;
 
@@ -45,7 +46,7 @@ public class Artist {
         this.birthDate = birthDate;
     }
 
-    public ArrayList<String> getGenres() {
+    public List<String> getGenres() {
         return genres;
     }
 
