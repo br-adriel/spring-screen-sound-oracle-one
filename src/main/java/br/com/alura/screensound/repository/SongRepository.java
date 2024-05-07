@@ -1,7 +1,7 @@
 package br.com.alura.screensound.repository;
 
 import br.com.alura.screensound.models.Song;
-import org.springframework.data.repository.Repository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface SongRepository extends Repository<Song, Long> {
+public interface SongRepository extends JpaRepository<Song, Long> {
 }
