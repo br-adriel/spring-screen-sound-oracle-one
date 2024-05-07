@@ -115,6 +115,10 @@ public class MainCli {
     }
 
     private void listArtists() {
+        System.out.println("\nListagem de artistas ====================");
+        var artists = artistRepository.findAll();
+        if (artists.isEmpty()) System.out.println("Nenhum artista cadastrado");
+        artists.forEach(System.out::println);
     }
 
     private void listSongs() {
