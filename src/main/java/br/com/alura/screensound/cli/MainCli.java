@@ -122,6 +122,10 @@ public class MainCli {
     }
 
     private void listSongs() {
+        System.out.println("\nListagem de músicas =====================");
+        var songs = songRepository.findAll();
+        if (songs.isEmpty()) System.out.println("Nenhuma música cadastrada");
+        songs.forEach(System.out::println);
     }
 
     private void searchArtist() {
