@@ -1,10 +1,12 @@
 package br.com.alura.screensound.cli;
 
 import br.com.alura.screensound.models.Artist;
+import br.com.alura.screensound.models.Song;
 import br.com.alura.screensound.models.enums.ArtistType;
 import br.com.alura.screensound.repository.ArtistRepository;
 import br.com.alura.screensound.repository.SongRepository;
 
+import java.time.Duration;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -42,9 +44,11 @@ public class MainCli {
                     registerSong();
                     break;
                 case 3:
+                    System.out.println("\nListagem de artistas ====================");
                     listArtists();
                     break;
                 case 4:
+                    System.out.println("\nListagem de músicas =====================");
                     listSongs();
                     break;
                 case 5:
@@ -75,7 +79,7 @@ public class MainCli {
             System.out.print("Tipo (Solo, Dupla ou Banda): ");
             artist.setType(ArtistType.fromPortugueseTranslation(sc.nextLine()));
 
-            System.out.print("Gêneros (separe come espaço e vírgula): ");
+            System.out.print("Gêneros (separe com espaço e vírgula): ");
             var genres = Arrays.asList(sc.nextLine().split(", "));
             artist.setGenres(genres);
 
@@ -112,17 +116,67 @@ public class MainCli {
     }
 
     private void registerSong() {
+        var opcao = -1;
+        while (opcao != 0) {
+            System.out.println("\nCadastro de música ======================");
+
+            var song = new Song();
+            listArtists();
+            System.out.print("Nome do artista: ");
+            var artistName = sc.nextLine();
+            var artist = artistRepository.findByName(artistName);
+            if (artist.isEmpty()) {
+                System.out.println("\n[!] - Artista não encontrado\n");
+                break;
+            }
+            song.setArtist(artist.get());
+
+            System.out.print("Nome: ");
+            song.setTitle(sc.nextLine());
+
+            System.out.print("Ano de lançamento: ");
+            song.setAno(sc.nextInt());
+            sc.nextLine();
+
+            System.out.print("Duração em segundos: ");
+            song.setDuration(Duration.ofSeconds(sc.nextInt()));
+            sc.nextLine();
+
+            System.out.print("Gêneros (separe com espaço e vírgula): ");
+            var genres = Arrays.asList(sc.nextLine().split(", "));
+            song.setGenres(genres);
+
+            System.out.println("\n[i] - Salvando...");
+            songRepository.save(song);
+            System.out.println("[i] - Música salva!\n");
+
+            var validOption = false;
+            while (!validOption) {
+                System.out.println("Deseja cadastrar outra música?");
+                System.out.println("0 - Não");
+                System.out.println("1 - Sim");
+                System.out.print(">> ");
+                opcao = sc.nextInt();
+
+                switch (opcao) {
+                    case 0:
+                    case 1:
+                        validOption = true;
+                        break;
+                    default:
+                        System.out.println("\n[!] - Opção inválida\n");
+                }
+            }
+        }
     }
 
     private void listArtists() {
-        System.out.println("\nListagem de artistas ====================");
         var artists = artistRepository.findAll();
         if (artists.isEmpty()) System.out.println("Nenhum artista cadastrado");
         artists.forEach(System.out::println);
     }
 
     private void listSongs() {
-        System.out.println("\nListagem de músicas =====================");
         var songs = songRepository.findAll();
         if (songs.isEmpty()) System.out.println("Nenhuma música cadastrada");
         songs.forEach(System.out::println);
