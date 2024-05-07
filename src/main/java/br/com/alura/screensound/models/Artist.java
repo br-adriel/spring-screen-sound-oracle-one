@@ -6,7 +6,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Artist {
-    private long id;
+    private Long id;
     private String name;
     private String bio;
     private LocalDate birthDate;
@@ -17,7 +17,7 @@ public class Artist {
     public Artist() {
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
