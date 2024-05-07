@@ -19,4 +19,8 @@ public enum ArtistType {
         }
         throw new IllegalArgumentException("Unknown ArtistType value");
     }
+
+    public String getPortugueseTranslation() {
+        return portugueseTranslation;
+    }
 }
