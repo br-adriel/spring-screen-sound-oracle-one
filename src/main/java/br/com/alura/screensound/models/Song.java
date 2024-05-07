@@ -17,7 +17,7 @@ public class Song {
     private Duration duration;
     private Integer ano;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Artist artist;
 
     public Song() {
@@ -65,5 +65,10 @@ public class Song {
 
     public void setAno(Integer ano) {
         this.ano = ano;
+    }
+
+    @Override
+    public String toString() {
+        return title + " - " + artist.getName();
     }
 }
