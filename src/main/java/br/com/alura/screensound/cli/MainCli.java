@@ -254,5 +254,81 @@ public class MainCli {
     private void searchArtistByType() {}
 
     private void searchSong() {
+        var opcao = -1;
+        while (opcao != 0) {
+            System.out.println("\nPesquisar música ========================");
+
+            var validOption = false;
+            while (!validOption) {
+                System.out.println("Buscar música por qual parâmetro?");
+                System.out.println("1 - Título");
+                System.out.println("2 - Duração");
+                System.out.println("3 - Artista");
+                System.out.println("4 - Gênero musical");
+                System.out.println("5 - Ano de lançamento");
+                System.out.println("0 - Cancelar");
+                System.out.print(">> ");
+                opcao = sc.nextInt();
+                sc.nextLine();
+
+                switch (opcao) {
+                    case 1:
+                        validOption = true;
+                        searchSongByTitle();
+                        break;
+                    case 2:
+                        validOption = true;
+                        searchSongByDuration();
+                        break;
+                    case 3:
+                        validOption = true;
+                        searchSongByArtist();
+                        break;
+                    case 4:
+                        validOption = true;
+                        searchSongByGenre();
+                        break;
+                    case 5:
+                        validOption = true;
+                        searchSongByYear();
+                        break;
+                    case 0:
+                        validOption = true;
+                        break;
+                    default:
+                        System.out.println("\n[!] - Opção inválida\n");
+                }
+            }
+
+            if (opcao == 0) continue;
+
+            validOption = false;
+            while (!validOption) {
+                System.out.println("Deseja buscar outra música?");
+                System.out.println("0 - Não");
+                System.out.println("1 - Sim");
+                System.out.print(">> ");
+                opcao = sc.nextInt();
+
+                switch (opcao) {
+                    case 0:
+                    case 1:
+                        validOption = true;
+                        break;
+                    default:
+                        System.out.println("\n[!] - Opção inválida\n");
+                }
+            }
+        }
     }
+
+    private void searchSongByTitle(){}
+
+    private void searchSongByDuration(){}
+
+    private void searchSongByArtist(){}
+
+    private void searchSongByGenre(){}
+
+    private void searchSongByYear() {}
 }
