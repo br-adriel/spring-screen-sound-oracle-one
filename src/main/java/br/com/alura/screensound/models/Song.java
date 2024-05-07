@@ -69,6 +69,9 @@ public class Song {
 
     @Override
     public String toString() {
-        return title + " - " + artist.getName();
+        int minutes = (int) duration.getSeconds() / 60;
+        int seconds = (int) (duration.getSeconds() - minutes * 60);
+        return title + " - " + artist.getName() + " (" + minutes + ":" +
+               seconds + ")";
     }
 }
