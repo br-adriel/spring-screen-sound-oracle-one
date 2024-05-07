@@ -1,15 +1,24 @@
 package br.com.alura.screensound.models;
 
+import jakarta.persistence.*;
+
 import java.time.Duration;
 import java.util.List;
 
+@Entity
+@Table(name = "songs")
 public class Song {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String title;
-    private Artist artist;
     private List<String> genres;
     private Duration duration;
     private Integer ano;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    private Artist artist;
 
     public Song() {
     }
