@@ -404,6 +404,14 @@ public class MainCli {
     }
 
     private void searchSongByTitle() {
+        System.out.println("\nBusca de música =========================");
+        System.out.print("Digite o título da música: ");
+        var title = sc.nextLine();
+
+        var songs = songRepository.findAllByTitleContainingIgnoreCase(title);
+        if (songs.isEmpty())
+            System.out.println("[i] - Nenhuma música encontrada\n");
+        songs.forEach(System.out::println);
     }
 
     private void searchSongByDuration() {
