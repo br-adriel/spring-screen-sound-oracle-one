@@ -13,9 +13,9 @@ public interface ArtistRepository extends JpaRepository<Artist, Long> {
 
     List<Artist> findAllByNameContainingIgnoreCase(String name);
 
-    List<Artist> findAllByBirthDateGreaterThanEqualLessThanEqual(LocalDate minDate, LocalDate maxDate);
+    List<Artist> findAllByBirthDateBetween(LocalDate minDate, LocalDate maxDate);
 
-    List<Artist> findAllByGenresContainingIgnoreCase(String genres);
+//    List<Artist> findAllByGenresContainingIgnoreCase(String genre);
 
     List<Artist> findAllByType(ArtistType artistType);
 }

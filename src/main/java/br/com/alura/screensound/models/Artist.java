@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "artists")
@@ -16,8 +17,10 @@ public class Artist {
     private String name;
     private String bio;
     private LocalDate birthDate;
-    private List<String> genres;
     private String website;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    private Set<MusicGenre> genres;
 
     @Enumerated(EnumType.STRING)
     private ArtistType type;
@@ -30,6 +33,10 @@ public class Artist {
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -56,12 +63,20 @@ public class Artist {
         this.birthDate = birthDate;
     }
 
-    public List<String> getGenres() {
+    public Set<MusicGenre> getGenres() {
         return genres;
     }
 
-    public void setGenres(List<String> genres) {
+    public void setGenres(Set<MusicGenre> genres) {
         this.genres = genres;
+    }
+
+    public List<Song> getSongs() {
+        return songs;
+    }
+
+    public void setSongs(List<Song> songs) {
+        this.songs = songs;
     }
 
     public String getWebsite() {

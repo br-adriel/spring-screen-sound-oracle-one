@@ -3,7 +3,7 @@ package br.com.alura.screensound.models;
 import jakarta.persistence.*;
 
 import java.time.Duration;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "songs")
@@ -13,18 +13,24 @@ public class Song {
     private Long id;
 
     private String title;
-    private List<String> genres;
     private Duration duration;
     private Integer ano;
 
     @ManyToOne
     private Artist artist;
 
+    @ManyToMany(fetch = FetchType.EAGER)
+    private Set<MusicGenre> genres;
+
     public Song() {
     }
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getTitle() {
@@ -43,11 +49,11 @@ public class Song {
         this.artist = artist;
     }
 
-    public List<String> getGenres() {
+    public Set<MusicGenre> getGenres() {
         return genres;
     }
 
-    public void setGenres(List<String> genres) {
+    public void setGenres(Set<MusicGenre> genres) {
         this.genres = genres;
     }
 
