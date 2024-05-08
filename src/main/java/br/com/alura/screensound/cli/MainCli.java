@@ -282,7 +282,7 @@ public class MainCli {
         var artistName = sc.nextLine();
         var artists = artistRepository.findAllByNameContainingIgnoreCase(artistName);
         if (artists.isEmpty())
-            System.out.println("\n[i] - Nenhum artista encontrado\n");
+            System.out.println("[i] - Nenhum artista encontrado\n");
         artists.forEach(System.out::println);
     }
 
@@ -308,7 +308,7 @@ public class MainCli {
         var artists = artistRepository
                 .findAllByBirthDateBetween(startDate, finalDate);
         if (artists.isEmpty())
-            System.out.println("\n[i] - Nenhum artista encontrado\n");
+            System.out.println("[i] - Nenhum artista encontrado\n");
         artists.forEach(System.out::println);
     }
 
@@ -319,7 +319,7 @@ public class MainCli {
 
         var artists = artistRepository.artistsByGenre(genre);
         if (artists.isEmpty())
-            System.out.println("\n[i] - Nenhum artista encontrado\n");
+            System.out.println("[i] - Nenhum artista encontrado\n");
         artists.forEach(System.out::println);
     }
 
@@ -329,7 +329,7 @@ public class MainCli {
         var type = ArtistType.fromPortugueseTranslation(sc.nextLine());
         var artists = artistRepository.findAllByType(type);
         if (artists.isEmpty())
-            System.out.println("\n[i] - Nenhum artista encontrado\n");
+            System.out.println("[i] - Nenhum artista encontrado\n");
         artists.forEach(System.out::println);
     }
 
@@ -384,7 +384,7 @@ public class MainCli {
 
             validOption = false;
             while (!validOption) {
-                System.out.println("Deseja buscar outra música?");
+                System.out.println("\nDeseja buscar outra música?");
                 System.out.println("0 - Não");
                 System.out.println("1 - Sim");
                 System.out.print(">> ");
