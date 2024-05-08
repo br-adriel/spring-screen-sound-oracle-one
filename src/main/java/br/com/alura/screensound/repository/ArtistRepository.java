@@ -3,6 +3,7 @@ package br.com.alura.screensound.repository;
 import br.com.alura.screensound.models.Artist;
 import br.com.alura.screensound.models.enums.ArtistType;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -15,7 +16,11 @@ public interface ArtistRepository extends JpaRepository<Artist, Long> {
 
     List<Artist> findAllByBirthDateBetween(LocalDate minDate, LocalDate maxDate);
 
-//    List<Artist> findAllByGenresContainingIgnoreCase(String genre);
-
     List<Artist> findAllByType(ArtistType artistType);
+
+    @Query("SELECT a" +
+           " FROM Artist a" +
+           " LEFT JOIN FETCH a.genres g" +
+           " WHERE g.name ILIKE %:genre%")
+    List<Artist> artistsByGenre(String genre);
 }
