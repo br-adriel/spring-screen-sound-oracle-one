@@ -77,7 +77,8 @@ public class Song {
     public String toString() {
         int minutes = (int) duration.getSeconds() / 60;
         int seconds = (int) (duration.getSeconds() - minutes * 60);
+
         return title + " - " + artist.getName() + " (" + minutes + ":" +
-               seconds + ")";
+               String.format("%02d", seconds) + ")";
     }
 }
