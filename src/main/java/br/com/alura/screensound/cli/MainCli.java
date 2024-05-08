@@ -436,6 +436,14 @@ public class MainCli {
     }
 
     private void searchSongByArtist() {
+        System.out.println("\nBusca de música =========================");
+        System.out.print("Digite o nome do artista: ");
+        var artistName = sc.nextLine();
+
+        var songs = songRepository.songsByArtistName(artistName);
+        if (songs.isEmpty())
+            System.out.println("[i] - Nenhuma música encontrada\n");
+        songs.forEach(System.out::println);
     }
 
     private void searchSongByGenre() {
