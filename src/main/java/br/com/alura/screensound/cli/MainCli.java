@@ -1,24 +1,35 @@
 package br.com.alura.screensound.cli;
 
 import br.com.alura.screensound.models.Artist;
+import br.com.alura.screensound.models.MusicGenre;
 import br.com.alura.screensound.models.Song;
 import br.com.alura.screensound.models.enums.ArtistType;
 import br.com.alura.screensound.repository.ArtistRepository;
+import br.com.alura.screensound.repository.MusicGenreRepository;
 import br.com.alura.screensound.repository.SongRepository;
 
 import java.time.Duration;
 import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.Scanner;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class MainCli {
     private final Scanner sc = new Scanner(System.in);
     private final ArtistRepository artistRepository;
     private final SongRepository songRepository;
+    private final MusicGenreRepository musicGenreRepository;
+    private final DateTimeFormatter dtFormatter;
 
-    public MainCli(ArtistRepository artistRepository, SongRepository songRepository) {
+    public MainCli(
+            ArtistRepository artistRepository,
+            SongRepository songRepository,
+            MusicGenreRepository musicGenreRepository
+    ) {
         this.artistRepository = artistRepository;
         this.songRepository = songRepository;
+        this.musicGenreRepository = musicGenreRepository;
+        this.dtFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     }
 
     public void start() {
@@ -79,16 +90,27 @@ public class MainCli {
             artist.setType(ArtistType.fromPortugueseTranslation(sc.nextLine()));
 
             System.out.print("Gêneros (separe com espaço e vírgula): ");
-            var genres = Arrays.asList(sc.nextLine().split(", "));
+            var genresStrings = Arrays.asList(sc.nextLine().split(", "));
+            Set<MusicGenre> genres = genresStrings
+                    .stream()
+                    .map(MusicGenre::new)
+                    .collect(Collectors.toSet());
+            genres = new HashSet<>(musicGenreRepository.saveAll(genres));
             artist.setGenres(genres);
+
 
             if (artist.getType() == ArtistType.SOLO) {
                 System.out.print("Data de nascimento: ");
-                artist.setBirthDate(LocalDate.parse(sc.nextLine()));
+                var dateString = sc.nextLine();
+                if (!dateString.isEmpty() && !dateString.isBlank()) {
+                    artist.setBirthDate(
+                            LocalDate.parse(dateString, dtFormatter)
+                    );
+                }
             }
 
             System.out.print("Website: ");
-            artist.setBio(sc.nextLine());
+            artist.setWebsite(sc.nextLine());
 
             System.out.println("\n[i] - Salvando...");
             artistRepository.save(artist);
@@ -142,7 +164,12 @@ public class MainCli {
             sc.nextLine();
 
             System.out.print("Gêneros (separe com espaço e vírgula): ");
-            var genres = Arrays.asList(sc.nextLine().split(", "));
+            var genresStrings = Arrays.asList(sc.nextLine().split(", "));
+            Set<MusicGenre> genres = genresStrings
+                    .stream()
+                    .map(MusicGenre::new)
+                    .collect(Collectors.toSet());
+            genres = new HashSet<>(musicGenreRepository.saveAll(genres));
             song.setGenres(genres);
 
             System.out.println("\n[i] - Salvando...");
@@ -245,13 +272,52 @@ public class MainCli {
         }
     }
 
-    private void searchArtistByName(){}
+    private void searchArtistByName() {
+        System.out.println("\nBusca de artista ========================");
+        System.out.print("Digite o nome do artista: ");
+        var artistName = sc.nextLine();
+        var artists = artistRepository.findAllByNameContainingIgnoreCase(artistName);
+        if (artists.isEmpty())
+            System.out.println("\n[i] - Nenhum artista encontrado\n");
+        artists.forEach(System.out::println);
+    }
 
-    private void searchArtistByBirthDate() {}
+    private void searchArtistByBirthDate() {
+        System.out.println("\nBusca de artista ========================");
+        System.out.print("Digite a data de nascimento mínima do artista: ");
+        var startDate = LocalDate.parse(sc.nextLine());
 
-    private void searchArtistByGenre() {}
+        System.out.print("Digite a data de nascimento máxima do artista: ");
+        var finalDate = LocalDate.parse(sc.nextLine());
 
-    private void searchArtistByType() {}
+        var artists = artistRepository
+                .findAllByBirthDateBetween(startDate, finalDate);
+        if (artists.isEmpty())
+            System.out.println("\n[i] - Nenhum artista encontrado\n");
+        artists.forEach(System.out::println);
+    }
+
+    private void searchArtistByGenre() {
+        System.out.println("\nBusca de artista ========================");
+        System.out.print("Digite o gênero musical: ");
+        var genre = sc.nextLine().toLowerCase();
+
+//        var artists = artistRepository
+//                .findAllByGenresContainingIgnoreCase(genre);
+//        if (artists.isEmpty())
+//            System.out.println("\n[i] - Nenhum artista encontrado\n");
+//        artists.forEach(System.out::println);
+    }
+
+    private void searchArtistByType() {
+        System.out.println("\nBusca de artista ========================");
+        System.out.print("Tipo (Solo, Dupla ou Banda): ");
+        var type = ArtistType.fromPortugueseTranslation(sc.nextLine());
+        var artists = artistRepository.findAllByType(type);
+        if (artists.isEmpty())
+            System.out.println("\n[i] - Nenhum artista encontrado\n");
+        artists.forEach(System.out::println);
+    }
 
     private void searchSong() {
         var opcao = -1;
@@ -322,13 +388,18 @@ public class MainCli {
         }
     }
 
-    private void searchSongByTitle(){}
+    private void searchSongByTitle() {
+    }
 
-    private void searchSongByDuration(){}
+    private void searchSongByDuration() {
+    }
 
-    private void searchSongByArtist(){}
+    private void searchSongByArtist() {
+    }
 
-    private void searchSongByGenre(){}
+    private void searchSongByGenre() {
+    }
 
-    private void searchSongByYear() {}
+    private void searchSongByYear() {
+    }
 }
