@@ -284,11 +284,22 @@ public class MainCli {
 
     private void searchArtistByBirthDate() {
         System.out.println("\nBusca de artista ========================");
+
         System.out.print("Digite a data de nascimento mínima do artista: ");
-        var startDate = LocalDate.parse(sc.nextLine());
+        var startDateString = sc.nextLine();
+        if (startDateString.isEmpty() || startDateString.isBlank()) {
+            System.out.println("\n[!] - Data inválida\n");
+            return;
+        }
+        var startDate = LocalDate.parse(startDateString, dtFormatter);
 
         System.out.print("Digite a data de nascimento máxima do artista: ");
-        var finalDate = LocalDate.parse(sc.nextLine());
+        var finalDateString = sc.nextLine();
+        if (finalDateString.isEmpty() || finalDateString.isBlank()) {
+            System.out.println("\n[!] - Data inválida\n");
+            return;
+        }
+        var finalDate = LocalDate.parse(finalDateString, dtFormatter);
 
         var artists = artistRepository
                 .findAllByBirthDateBetween(startDate, finalDate);
@@ -299,14 +310,13 @@ public class MainCli {
 
     private void searchArtistByGenre() {
         System.out.println("\nBusca de artista ========================");
-        System.out.print("Digite o gênero musical: ");
+        System.out.print("Digite o nome do gênero musical: ");
         var genre = sc.nextLine().toLowerCase();
 
-//        var artists = artistRepository
-//                .findAllByGenresContainingIgnoreCase(genre);
-//        if (artists.isEmpty())
-//            System.out.println("\n[i] - Nenhum artista encontrado\n");
-//        artists.forEach(System.out::println);
+        var artists = artistRepository.artistsByGenre(genre);
+        if (artists.isEmpty())
+            System.out.println("\n[i] - Nenhum artista encontrado\n");
+        artists.forEach(System.out::println);
     }
 
     private void searchArtistByType() {
