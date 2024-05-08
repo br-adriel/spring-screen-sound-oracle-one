@@ -11,7 +11,10 @@ import br.com.alura.screensound.repository.SongRepository;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Scanner;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class MainCli {
@@ -415,6 +418,21 @@ public class MainCli {
     }
 
     private void searchSongByDuration() {
+        System.out.println("\nBusca de música =========================");
+
+        System.out.print("Digite a duração mínima em segundos: ");
+        var minDuration = Duration.ofSeconds(sc.nextInt());
+        sc.nextLine();
+
+        System.out.print("Digite a duração máxima em segundos: ");
+        var maxDuration = Duration.ofSeconds(sc.nextInt());
+        sc.nextLine();
+
+        var songs = songRepository
+                .findAllByDurationBetween(minDuration, maxDuration);
+        if (songs.isEmpty())
+            System.out.println("[i] - Nenhuma música encontrada\n");
+        songs.forEach(System.out::println);
     }
 
     private void searchSongByArtist() {
