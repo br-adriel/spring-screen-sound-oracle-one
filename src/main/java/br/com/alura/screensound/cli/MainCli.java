@@ -47,6 +47,7 @@ public class MainCli {
             System.out.print(">> ");
             opcao = sc.nextInt();
             sc.nextLine();
+
             switch (opcao) {
                 case 1:
                     registerArtist();
@@ -123,6 +124,7 @@ public class MainCli {
                 System.out.println("1 - Sim");
                 System.out.print(">> ");
                 opcao = sc.nextInt();
+                sc.nextLine();
 
                 switch (opcao) {
                     case 0:
@@ -183,6 +185,7 @@ public class MainCli {
                 System.out.println("1 - Sim");
                 System.out.print(">> ");
                 opcao = sc.nextInt();
+                sc.nextLine();
 
                 switch (opcao) {
                     case 0:
@@ -259,6 +262,7 @@ public class MainCli {
                 System.out.println("1 - Sim");
                 System.out.print(">> ");
                 opcao = sc.nextInt();
+                sc.nextLine();
 
                 switch (opcao) {
                     case 0:
@@ -385,6 +389,7 @@ public class MainCli {
                 System.out.println("1 - Sim");
                 System.out.print(">> ");
                 opcao = sc.nextInt();
+                sc.nextLine();
 
                 switch (opcao) {
                     case 0:
