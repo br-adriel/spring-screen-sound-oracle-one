@@ -458,5 +458,19 @@ public class MainCli {
     }
 
     private void searchSongByYear() {
+        System.out.println("\nBusca de música =========================");
+        System.out.print("Digite o ano de lançamento mínimo: ");
+        var minYear = sc.nextInt();
+        sc.nextLine();
+
+        System.out.print("Digite o ano de lançamento máximo: ");
+        var maxYear = sc.nextInt();
+        sc.nextLine();
+
+        var songs = songRepository
+                .findAllByReleaseYearBetween(minYear, maxYear);
+        if (songs.isEmpty())
+            System.out.println("[i] - Nenhuma música encontrada\n");
+        songs.forEach(System.out::println);
     }
 }
