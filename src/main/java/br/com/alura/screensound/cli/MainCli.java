@@ -156,7 +156,7 @@ public class MainCli {
             song.setTitle(sc.nextLine());
 
             System.out.print("Ano de lançamento: ");
-            song.setAno(sc.nextInt());
+            song.setReleaseYear(sc.nextInt());
             sc.nextLine();
 
             System.out.print("Duração em segundos: ");

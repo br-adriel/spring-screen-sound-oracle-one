@@ -14,7 +14,7 @@ public class Song {
 
     private String title;
     private Duration duration;
-    private Integer ano;
+    private Integer releaseYear;
 
     @ManyToOne
     private Artist artist;
@@ -65,12 +65,12 @@ public class Song {
         this.duration = duration;
     }
 
-    public Integer getAno() {
-        return ano;
+    public Integer getReleaseYear() {
+        return releaseYear;
     }
 
-    public void setAno(Integer ano) {
-        this.ano = ano;
+    public void setReleaseYear(Integer releaseYear) {
+        this.releaseYear = releaseYear;
     }
 
     @Override
